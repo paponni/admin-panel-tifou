@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
   <h2>Upload</h2>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -10,7 +11,7 @@
     <button type="submit">Upload file</button>
   </form>
   {% if url %}
-    <p>Uploaded file: <a href="{{ url }}">{{ url }}</a></p>
+    <p>votre fichier a été chargé avec succès <a href="{{ url }}">{{ url }}</a></p>
   
   {% endif %}
 {% endblock %}

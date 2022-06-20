@@ -47,8 +47,10 @@ def upload(request):
         data2=[data[3],data[7],data[11],data[15],data[19],data[2],data[6],data[10],data[14],data[18],data[1],data[5],data[9],data[13],data[17],data[0],data[4],data[8],data[12],data[16]]
         print(data2)
         # print(data[0])
+        # https://leds-ee136-default-rtdb.firebaseio.com/
         myDB = firebase.FirebaseApplication("https://leds-ee136-default-rtdb.firebaseio.com/",None)
-        myDB.post("image1",data2)
+        
+        myDB.put('','image1',data2)
         
 
     return render(request, 'upload.html', context)

@@ -2,16 +2,27 @@
 
 {% block content %}
 
-  <h2 style="margin-left: 22%;">Upload</h2>
-  <form method="post" enctype="multipart/form-data">
+  <h2 style="margin-left: 35%;">Upload</h2>
+  <form method="post" enctype="multipart/form-data" style="display: flex;
+">
     {% csrf_token %}
     <input type="file" name="document">
-    <label>Width :</label> <input type="text" name="width" />
-    <label>Height :</label><input type="text" name="height" />
-    <button type="submit">Upload file</button>
+    <label style="font-size: 37px;margin-left: 7px;">Width :</label> <input type="text" placeholder="width" name="width" style="border-radius: 11px;
+    background: transparent;
+    width: 243px;
+    height: 45px;
+    border: 1px solid white;
+    margin-bottom: 16px;"/>
+    <label style="font-size: 37px;margin-left: 7px;">Height :</label><input type="text" name="height" placeholder="height" style="border-radius: 11px;
+    background: transparent;
+    width: 243px;
+    height: 45px;
+    border: 1px solid white;
+    margin-bottom: 16px;"/>
+    <button type="submit" style="width: 180px;margin-left: 7px; height: 45px; border: 1px solid white; background: transparent;color: white;">Upload file</button>
   </form>
   {% if url %}
-    <p>votre fichier a été chargé avec succès <a href="{{ url }}">{{ url }}</a></p>
+    <p style="color: white;font-size: 22px;">votre fichier a été chargé avec succès <a href="{{ url }}">{{ url }}</a></p>
   
   {% endif %}
 {% endblock %}

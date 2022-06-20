@@ -284,6 +284,7 @@ container-ticket{
     border-radius: 22px;
     background-repeat: no-repeat;
     background-position: center;
+    border: 1px solid white;
     /* linear-gradient(180deg, rgba(43, 56, 225, 0.406) 0%, rgba(60, 66, 144, 0.182) 100%) */
   }
   .feed{

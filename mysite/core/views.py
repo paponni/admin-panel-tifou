@@ -3,8 +3,6 @@ from django.views.generic import TemplateView, ListView, CreateView
 from django.core.files.storage import FileSystemStorage
 from django.urls import reverse_lazy
 
-from .forms import BookForm
-from .models import Book
 import pandas as pd 
 import numpy as np
 from PIL import Image
@@ -26,7 +24,6 @@ def upload(request):
         print(uploaded_file)
         fs = FileSystemStorage()
         name = fs.save(uploaded_file.name, uploaded_file)
-        # print(name)
         context['url'] = fs.url(name)
 
         red_image = Image.open(uploaded_file)
@@ -39,53 +36,31 @@ def upload(request):
             for y in range(height):
                 cpixel = image.getpixel((x,y))
                 all_pixels.append(cpixel)
+        # print(np.linalg.inv(all_pixels))
         dframe = pd.DataFrame(all_pixels, columns=['r','g', 'b'])
         d = dframe.to_json(orient='records')
+        # inv = print(np.linalg.inv(d))
         print(d)
-        print(dframe)
+        
+        # print(dframe)
         data = json.loads(d)
-        myDB = firebase.FirebaseApplication("https://my-awesome-pr-656bc-default-rtdb.firebaseio.com/",None)
-        myDB.post("image1",data)
+        data2=[data[3],data[7],data[11],data[15],data[19],data[2],data[6],data[10],data[14],data[18],data[1],data[5],data[9],data[13],data[17],data[0],data[4],data[8],data[12],data[16]]
+        print(data2)
+        # print(data[0])
+        myDB = firebase.FirebaseApplication("https://leds-ee136-default-rtdb.firebaseio.com/",None)
+        myDB.post("image1",data2)
         
 
     return render(request, 'upload.html', context)
 
 
-def book_list(request):
-    books = Book.objects.all()
-    return render(request, 'book_list.html', {
-        'books': books
-    })
 
 
-def upload_book(request):
-    if request.method == 'POST':
-        form = BookForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('book_list')
-    else:
-        form = BookForm()
-    return render(request, 'upload_book.html', {
-        'form': form
-    })
 
 
-def delete_book(request, pk):
-    if request.method == 'POST':
-        book = Book.objects.get(pk=pk)
-        book.delete()
-    return redirect('book_list')
 
 
-class BookListView(ListView):
-    model = Book
-    template_name = 'class_book_list.html'
-    context_object_name = 'books'
 
 
-class UploadBookView(CreateView):
-    model = Book
-    form_class = BookForm
-    success_url = reverse_lazy('class_book_list')
-    template_name = 'upload_book.html'
+
+
